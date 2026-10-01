@@ -24,12 +24,6 @@ compile_commands.json
 *.dylib
 *.exe
 
-# Debug and profiling artifacts
-*.core
-core
-perf.data
-perf.data.old
-
 # Operating system files
 .DS_Store
 Thumbs.db
