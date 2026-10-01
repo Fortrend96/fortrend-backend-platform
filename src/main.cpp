@@ -1,4 +1,5 @@
 #include <fortrend/core/application_config.h>
+#include <fortrend/core/logger.h>
 
 #include <iostream>
 
@@ -9,14 +10,18 @@ int main()
 	if (!stConfigResult)
 	{
 		std::cerr << "Configuration error: " << stConfigResult.error() << '\n';
+
 		return 1;
 	}
 
 	const auto& stConfig = *stConfigResult;
 
-	std::cout << "Fortrend Backend Platform" << '\n';
-	std::cout << "Service: " << stConfig.m_sServiceName << '\n';
-	std::cout << "Environment: " << stConfig.m_sEnvironment << '\n';
+	const fortrend::core::CLogger logger(
+		stConfig.m_sServiceName,
+		stConfig.m_sEnvironment
+	);
+
+	logger.info("application started");
 
 	return 0;
 }

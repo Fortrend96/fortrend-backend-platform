@@ -10,6 +10,7 @@ add_executable(
 	fortrend_backend
 	src/main.cpp
 	src/core/application_config.cpp
+	src/core/logger.cpp
 )
 
 target_include_directories(
@@ -30,7 +31,7 @@ set_target_properties(
 		CXX_EXTENSIONS OFF
 )
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	target_compile_options(
 		fortrend_backend
 		PRIVATE
@@ -40,12 +41,5 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 			-Wconversion
 			-Wsign-conversion
 			-Wshadow
-	)
-elseif(MSVC)
-	target_compile_options(
-		fortrend_backend
-		PRIVATE
-			/W4
-			/permissive-
 	)
 endif()
