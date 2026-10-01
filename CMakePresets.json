@@ -1,0 +1,42 @@
+{
+	"version": 6,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 25,
+		"patch": 0
+	},
+	"configurePresets": [
+		{
+			"name": "linux-gcc-debug",
+			"displayName": "Linux GCC Debug",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/linux-gcc-debug",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_CXX_COMPILER": "g++",
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+			}
+		},
+		{
+			"name": "linux-clang-debug",
+			"displayName": "Linux Clang Debug",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build/linux-clang-debug",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_CXX_COMPILER": "clang++",
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "linux-gcc-debug",
+			"configurePreset": "linux-gcc-debug"
+		},
+		{
+			"name": "linux-clang-debug",
+			"configurePreset": "linux-clang-debug"
+		}
+	]
+}
