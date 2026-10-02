@@ -18,6 +18,7 @@ set_target_properties(
 )
 
 fortrend_enable_warnings(fortrend_unit_tests)
+fortrend_enable_sanitizers(fortrend_unit_tests)
 
 include(GoogleTest)
 

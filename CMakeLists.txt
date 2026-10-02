@@ -21,6 +21,33 @@ function(fortrend_enable_warnings target_name)
 	endif()
 endfunction()
 
+function(fortrend_enable_sanitizers target_name)
+	if(NOT FORTREND_ENABLE_SANITIZERS)
+		return()
+	endif()
+
+	if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+		message(
+			FATAL_ERROR
+			"Sanitizer configuration currently supports GCC only"
+		)
+	endif()
+
+	target_compile_options(
+		${target_name}
+		PRIVATE
+			-fsanitize=address,undefined
+			-fno-omit-frame-pointer
+			-fno-sanitize-recover=all
+	)
+
+	target_link_options(
+		${target_name}
+		PRIVATE
+			-fsanitize=address,undefined
+	)
+endfunction()
+
 add_library(
 	fortrend_core
 	STATIC

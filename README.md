@@ -13,9 +13,19 @@ Educational backend project in C++23 focused on Linux, networking, asynchronous 
 - structured JSON logging
 - typed application error model
 - unit tests with GoogleTest and CTest
+- ASan and UBSan development builds
 
 ## Build
 
 ```bash
 cmake --preset linux-gcc-debug
 cmake --build --preset linux-gcc-debug
+
+## Sanitizers
+
+Configure and build with AddressSanitizer and UndefinedBehaviorSanitizer:
+
+```bash
+cmake --preset linux-gcc-sanitizers
+cmake --build --preset linux-gcc-sanitizers
+ctest --test-dir build/linux-gcc-sanitizers --output-on-failure

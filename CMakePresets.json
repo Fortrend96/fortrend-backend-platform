@@ -15,7 +15,17 @@
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_CXX_COMPILER": "g++",
 				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-				"BUILD_TESTING": "ON"
+				"BUILD_TESTING": "ON",
+				"FORTREND_ENABLE_SANITIZERS": "OFF"
+			}
+		},
+		{
+			"name": "linux-gcc-sanitizers",
+			"displayName": "Linux GCC ASan + UBSan",
+			"inherits": "linux-gcc-debug",
+			"binaryDir": "${sourceDir}/build/linux-gcc-sanitizers",
+			"cacheVariables": {
+				"FORTREND_ENABLE_SANITIZERS": "ON"
 			}
 		}
 	],
@@ -23,6 +33,10 @@
 		{
 			"name": "linux-gcc-debug",
 			"configurePreset": "linux-gcc-debug"
+		},
+		{
+			"name": "linux-gcc-sanitizers",
+			"configurePreset": "linux-gcc-sanitizers"
 		}
 	]
 }
