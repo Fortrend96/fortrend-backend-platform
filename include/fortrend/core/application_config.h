@@ -14,6 +14,8 @@ struct SApplicationConfig
 	std::string m_sEnvironment{ "local" };
 };
 
+std::expected<void, SError> validateApplicationConfig(const SApplicationConfig& stConfig);
+
 std::expected<SApplicationConfig, SError> loadApplicationConfig();
 
 }

@@ -11,6 +11,8 @@ Educational backend project in C++23 focused on Linux, networking, asynchronous 
 - configuration validation
 - typed application error model
 - structured JSON logging
+- typed application error model
+- unit tests with GoogleTest and CTest
 
 ## Build
 

@@ -6,24 +6,58 @@ project(
 	LANGUAGES CXX
 )
 
-add_executable(
-	fortrend_backend
-	src/main.cpp
-	src/core/application_config.cpp
-	src/core/error.cpp
-	src/core/logger.cpp
+function(fortrend_enable_warnings target_name)
+	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+		target_compile_options(
+			${target_name}
+			PRIVATE
+				-Wall
+				-Wextra
+				-Wpedantic
+				-Wconversion
+				-Wsign-conversion
+				-Wshadow
+		)
+	endif()
+endfunction()
+
+add_library(
+	fortrend_core
+	STATIC
+		src/core/application_config.cpp
+		src/core/error.cpp
+		src/core/logger.cpp
 )
 
 target_include_directories(
-	fortrend_backend
-	PRIVATE
+	fortrend_core
+	PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 target_compile_features(
+	fortrend_core
+	PUBLIC
+		cxx_std_23
+)
+
+set_target_properties(
+	fortrend_core
+	PROPERTIES
+		CXX_EXTENSIONS OFF
+)
+
+fortrend_enable_warnings(fortrend_core)
+
+add_executable(
+	fortrend_backend
+	src/main.cpp
+)
+
+target_link_libraries(
 	fortrend_backend
 	PRIVATE
-		cxx_std_23
+		fortrend_core
 )
 
 set_target_properties(
@@ -32,15 +66,24 @@ set_target_properties(
 		CXX_EXTENSIONS OFF
 )
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	target_compile_options(
-		fortrend_backend
-		PRIVATE
-			-Wall
-			-Wextra
-			-Wpedantic
-			-Wconversion
-			-Wsign-conversion
-			-Wshadow
+fortrend_enable_warnings(fortrend_backend)
+
+include(CTest)
+
+if(BUILD_TESTING)
+	include(FetchContent)
+
+	set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
+	set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
+
+	FetchContent_Declare(
+		googletest
+		GIT_REPOSITORY https://github.com/google/googletest.git
+		GIT_TAG v1.18.0
+		GIT_SHALLOW TRUE
 	)
+
+	FetchContent_MakeAvailable(googletest)
+
+	add_subdirectory(tests)
 endif()
