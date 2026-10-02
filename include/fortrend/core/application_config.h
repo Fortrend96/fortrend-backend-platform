@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fortrend/core/error.h>
+
 #include <expected>
 #include <string>
 
@@ -12,6 +14,6 @@ struct SApplicationConfig
 	std::string m_sEnvironment{ "local" };
 };
 
-std::expected<SApplicationConfig, std::string> loadApplicationConfig();
+std::expected<SApplicationConfig, SError> loadApplicationConfig();
 
 }

@@ -9,6 +9,7 @@ Educational backend project in C++23 focused on Linux, networking, asynchronous 
 - GCC
 - environment-based configuration
 - configuration validation
+- typed application error model
 - structured JSON logging
 
 ## Build
@@ -16,42 +17,3 @@ Educational backend project in C++23 focused on Linux, networking, asynchronous 
 ```bash
 cmake --preset linux-gcc-debug
 cmake --build --preset linux-gcc-debug
-```
-
-## Run
-
-```bash
-./build/linux-gcc-debug/fortrend_backend
-```
-
-Example with configuration:
-
-```bash
-FORTREND_ENV=production \
-FORTREND_SERVICE_NAME=fortrend-backend \
-./build/linux-gcc-debug/fortrend_backend
-```
-
-## Configuration
-
-Supported environment variables:
-
-- `FORTREND_SERVICE_NAME`
-- `FORTREND_ENV`
-
-Supported environments:
-
-- `local`
-- `development`
-- `test`
-- `production`
-
-## Logging
-
-The application writes structured JSON logs.
-
-Example:
-
-```json
-{"timestamp":"2026-10-01T10:35:41.123Z","severity":"INFO","service":"fortrend-backend","environment":"local","message":"application started"}
-```

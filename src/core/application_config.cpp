@@ -1,3 +1,5 @@
+#include "fortrend/core/error.h"
+#include <expected>
 #include <fortrend/core/application_config.h>
 
 #include <cstdlib>
@@ -20,7 +22,7 @@ bool isSupportedEnvironment(std::string_view sEnvironment)
 namespace fortrend::core
 {
 
-std::expected<SApplicationConfig, std::string> loadApplicationConfig()
+std::expected<SApplicationConfig, SError> loadApplicationConfig()
 {
 	SApplicationConfig stConfig;
 
@@ -39,14 +41,21 @@ std::expected<SApplicationConfig, std::string> loadApplicationConfig()
 	if (stConfig.m_sServiceName.empty())
 	{
 		return std::unexpected(
-			"FORTREND_SERVICE_NAME must not be empty");
+			SError{
+				EErrorCode::InvalidConfiguration,
+				"FORTREND_SERVICE_NAME must not be empty"
+			}
+		);
 	}
 
 	if (!isSupportedEnvironment(stConfig.m_sEnvironment))
 	{
 		return std::unexpected(
-			"FORTREND_ENV must be one of: "
-			"local, development, test, production");
+			SError{
+				EErrorCode::InvalidConfiguration,
+				"FORTREND_ENV must be one of: "
+				"local, development, test, production"
+			});
 	}
 
 	return stConfig;

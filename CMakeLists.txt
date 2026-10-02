@@ -10,6 +10,7 @@ add_executable(
 	fortrend_backend
 	src/main.cpp
 	src/core/application_config.cpp
+	src/core/error.cpp
 	src/core/logger.cpp
 )
 

@@ -1,4 +1,5 @@
 #include <fortrend/core/application_config.h>
+#include <fortrend/core/error.h>
 #include <fortrend/core/logger.h>
 
 #include <iostream>
@@ -9,7 +10,13 @@ int main()
 
 	if (!stConfigResult)
 	{
-		std::cerr << "Configuration error: " << stConfigResult.error() << '\n';
+		const auto& stError = stConfigResult.error();
+
+		std::cerr << "Startup error ["
+				<< fortrend::core::errorCodeToString(stError.m_eCode)
+				<< "]: "
+				<< stError.m_sMessage
+				<< "\n";
 
 		return 1;
 	}
