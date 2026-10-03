@@ -2,6 +2,7 @@ add_executable(
 	fortrend_unit_tests
 	unit/core/application_config_test.cpp
 	unit/core/error_test.cpp
+	unit/core/process_signal_test.cpp
 )
 
 target_link_libraries(

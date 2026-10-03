@@ -8,6 +8,7 @@ namespace fortrend::core
 enum class EErrorCode
 {
     InvalidConfiguration,
+    SignalHandlerSetupFailed,
     InternalError
 };
 

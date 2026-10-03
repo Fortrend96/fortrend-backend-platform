@@ -6,6 +6,12 @@ project(
 	LANGUAGES CXX
 )
 
+option(
+	FORTREND_ENABLE_SANITIZERS
+	"Enable AddressSanitizer and UndefinedBehaviorSanitizer"
+	OFF
+)
+
 function(fortrend_enable_warnings target_name)
 	if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 		target_compile_options(
@@ -54,6 +60,7 @@ add_library(
 		src/core/application_config.cpp
 		src/core/error.cpp
 		src/core/logger.cpp
+		src/core/process_signal.cpp
 )
 
 target_include_directories(
@@ -75,6 +82,7 @@ set_target_properties(
 )
 
 fortrend_enable_warnings(fortrend_core)
+fortrend_enable_sanitizers(fortrend_core)
 
 add_executable(
 	fortrend_backend
@@ -94,6 +102,7 @@ set_target_properties(
 )
 
 fortrend_enable_warnings(fortrend_backend)
+fortrend_enable_sanitizers(fortrend_backend)
 
 include(CTest)
 
